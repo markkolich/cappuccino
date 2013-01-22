@@ -2,7 +2,7 @@
 
 A simple, and somewhat lame, web-server for Windows backed by Restlet.
 
-On Windows, download and run a <a href="http://markkolich.github.com/downloads/cappuccino/cappuccino-0.4.exe">single .exe</a> and with **no installation**, Cappuccino gives you a web-server on localhost:8080 that serves static content from the directory you started it from (from where you ran the .exe).
+On Windows, download and run a <a href="http://markkolich.github.com/downloads/cappuccino/0.4/cappuccino-0.4.exe">single .exe</a> and with **no installation**, Cappuccino gives you a web-server on localhost:8080 that serves static content from the directory you started it from (from where you ran the .exe).
 
 Ideal for when you're on a Windows box (or VM), and need to share large files with co-workers or friends the local network.
 
@@ -10,4 +10,4 @@ Written in Java, but doesn't mean you need a JVM installed to run Cappuccino &md
 
 ## Latest Version
 
-Latest version is 0.4.  You can download it <a href="http://markkolich.github.com/downloads/cappuccino/cappuccino-0.4.exe">here</a>.
+Latest version is 0.4.  You can download it <a href="http://markkolich.github.com/downloads/cappuccino/0.4/cappuccino-0.4.exe">here</a>.
