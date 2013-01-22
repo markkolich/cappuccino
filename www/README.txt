@@ -1,0 +1,1 @@
+Files are served from here by default.

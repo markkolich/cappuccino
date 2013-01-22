@@ -1,4 +1,3 @@
-cappuccino
-==========
+# cappuccino
 
-A really simple, and somewhat lame, web-server backed by Restlet.
+A simple, and somewhat lame, web-server for Windows backed by Restlet.

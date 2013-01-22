@@ -1,0 +1,131 @@
+<project name="cappuccino" default="package.cappuccino">
+	
+	<property file="build.properties" />
+
+    <property name="one-jar.version" value="0.96"/>
+    <property name="one-jar.dist.dir" value="${basedir}/one-jar"/>   
+    
+    <property name="src.dir" location="${basedir}/src/org/kolich"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="build.dir" location="${basedir}/build"/>
+    <property name="dist.dir" location="${basedir}/dist"/>
+    <property name="one-jar.dir" location="${basedir}/one-jar"/>
+	
+	<property name="7zip.dir" location="${basedir}/7zip"/>
+	<property name="sfx.dir" location="${basedir}/sfx"/>
+	<property name="jre.dir" location="${basedir}/jre"/>
+	
+	<fileset id="classpath.cappuccino" dir="${lib.dir}">
+		
+		<include name="com.noelios.restlet.jar" />
+		<include name="jul-to-slf4j-1.5.8.jar" />
+		<include name="log4j-1.2.15.jar" />
+		<include name="org.restlet.jar" />
+		<include name="slf4j-api-1.5.8.jar" />
+		<include name="slf4j-log4j12-1.5.8.jar" />
+		
+		<include name="commons-httpclient-4.0.jar" />
+		<include name="commons-httpcore-4.0.1.jar" />
+		<include name="commons-httpcore-nio-4.0.1.jar" />
+		<include name="commons-httpmime-4.0.jar" />
+		
+		<include name="commons-logging-1.0.4.jar" />
+		
+	</fileset>
+    
+    <target name="clean.cappuccino" depends="clean.build.cappuccino, clean.dist.cappuccino">
+    	
+    </target>
+	
+	<target name="clean.build.cappuccino">
+      <delete includeemptydirs="true">
+        <fileset dir="${build.dir}" includes="**/*" />
+      </delete>
+    </target>
+	
+	<target name="clean.dist.cappuccino">
+      <delete includeemptydirs="true">
+        <fileset dir="${dist.dir}" includes="**/*" />
+      </delete>
+    </target>
+ 
+    <import file="${one-jar.dir}/one-jar-ant-task.xml"/>
+	
+	<target name="build.cappuccino" depends="clean.cappuccino">
+		
+		<!-- Build classes for main.jar -->
+        <javac destdir="${build.dir}" srcdir="${src.dir}"
+    		source="${source.version}" debug="${source.debug}"
+    		target="${source.target}">
+        	<classpath>
+       			<fileset refid="classpath.cappuccino" />
+        	</classpath>
+        	<include name="**/*.java"/>
+		</javac>
+		
+	</target>
+
+    <target name="package.cappuccino" depends="clean.cappuccino, build.cappuccino">
+    	    	
+        <!-- Construct the One-JAR file -->
+        <one-jar destfile="${dist.dir}/cappuccino-${cappuccino.version}.jar" manifest="${one-jar.dir}/manifest.mf">        	
+            <main>
+                <!-- Construct main jar from classes and source code -->
+                <fileset dir="${build.dir}">
+                	<include name="**/*.class"/>
+                </fileset>
+            </main>            	
+            <lib>
+				<fileset refid="classpath.cappuccino" />
+            </lib>
+        </one-jar>
+    	
+    	<!-- misc cleanup -->
+    	<antcall target="clean.build.cappuccino" />
+    	
+    </target>
+    
+	<target name="package.cappuccino.sfx" depends="package.cappuccino">
+		
+		<!-- compress all of the files we need to down with 7zip
+    			including the JRE itself -->
+	    <exec executable="${7zip.dir}/7z.exe" failonerror="true">
+	    	
+			<arg value="a" />
+			<arg value="-t7z" />
+			<arg value="-r" />
+	    	
+			<arg value="${dist.dir}\cappuccino-${cappuccino.version}.7z" />
+			<arg value="${dist.dir}" />
+	    	<arg value="${jre.dir}" />
+	    	
+    		<!-- some additional arguments to improve compression -->
+			<arg value="-mx" />
+			<arg value="-m0=BCJ2" />
+			<arg value="-m1=LZMA:d24" />
+			<arg value="-m2=LZMA:d19" />
+			<arg value="-m3=LZMA:d19" />
+			<arg value="-mb0:1" />
+			<arg value="-mb0s1:2" />
+			<arg value="-mb0s2:3" />
+	    	
+	    </exec>
+		
+		<!-- update the app.tag build file accordingly -->
+		<copy todir="${build.dir}" file="${sfx.dir}/app.tag" />
+		<replace file="${build.dir}/app.tag" token="@@@"
+					value="${cappuccino.version}" />
+    	
+    	<!-- concat the files we need together to produce a binary
+	        launcher -->
+	    <concat destfile="${dist.dir}/cappuccino-${cappuccino.version}.exe" binary="yes">
+	      <fileset file="${sfx.dir}/7zCP.sfx" />
+	      <fileset file="${build.dir}/app.tag" />
+	      <fileset file="${dist.dir}/cappuccino-${cappuccino.version}.7z" />
+	    </concat>
+		
+		<echo>SFX launcher built successfully: cappuccino-${cappuccino.version}.exe under ${dist.dir}</echo>
+		
+	</target>
+	
+</project>
