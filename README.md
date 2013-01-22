@@ -10,4 +10,6 @@ Written in Java, but doesn't mean you need a JVM installed to run Cappuccino &md
 
 ## Latest Version
 
-Latest version is 0.4.  You can download it <a href="http://markkolich.github.com/downloads/cappuccino/cappuccino-0.4.exe">here</a>.
+The latest version is 0.4.
+
+You can download it <a href="http://markkolich.github.com/downloads/cappuccino/cappuccino-0.4.exe">here</a>.
