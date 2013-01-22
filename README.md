@@ -6,7 +6,7 @@ On Windows, download and run a <a href="https://github.com/markkolich/cappuccino
 
 Ideal for when you're on a Windows box (or VM), and need to share large files with co-workers or friends the local network.
 
-Written in Java, but doesn't need a JVM to run &mdash; Cappuccino ships with a self-contained JRE thanks to 7zip SFX.
+Written in Java, but doesn't mean you need a JVM installed to run Cappuccino &mdash; the binary ships with a self-contained JRE thanks to 7zip SFX.
 
 ## Latest Version
 
