@@ -8,7 +8,7 @@ On Windows, download and run <a href="http://markkolich.github.com/downloads/cap
 
 Ideal for when you're on a Windows box, or a Windows VM, and need to share large files with co-workers or friends on the local network.
 
-Written in Java, but doesn't mean you need a Java runtime installed to run Cappuccino &mdash; the binary ships with a self-contained JRE &mdash; that you never see and don't have to install &mdash; thanks to 7zip SFX.
+Written in Java, but doesn't mean you need a Java runtime installed to run Cappuccino &mdash; the binary ships with a self-contained JRE, that you never see and don't have to install &mdash; thanks to 7zip SFX.
 
 ## Latest Version
 
